@@ -1,0 +1,21 @@
+pipeline
+{
+    agent any
+    stages {
+    stage('Docker push')
+        {
+            steps
+            {
+                script
+                {
+                    docker.withRegistry(
+	                'https://167934968472.dkr.ecr.ap-south-1.amazonaws.com',
+	                'ecr:ap-south-1:ecr') {
+                	def myImage = docker.build('pog_connector_middleware')
+                	myImage.push('v_1')
+	                } 
+                }
+            }
+        }
+    }
+}
